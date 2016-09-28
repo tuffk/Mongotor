@@ -1,4 +1,4 @@
 sceneSetups:
-- path: Assets/Scenes/bosque/bosque.unity
+- path: Assets/Scenes/marte/marte.unity
   isLoaded: 1
   isActive: 1
