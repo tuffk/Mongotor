@@ -201,7 +201,7 @@ public class mover : MonoBehaviour
                 {
                     targetPoint = m_Cam.position + (m_Cam.forward * maxRange);
                 }
-                if (new_obj != hit_obj)
+                if (new_obj != hit_obj && hit_obj != null)
                 {
                     hit_obj.GetComponent<Renderer>().material.color = Color.white;
                 }
