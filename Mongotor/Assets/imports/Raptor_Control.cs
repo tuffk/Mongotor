@@ -23,6 +23,7 @@ public class Raptor_Control : MonoBehaviour
     {
         if (!_cindyMuere)
         {
+            _animator.SetBool("Death", false);
             if (_rotaCindyDerecha)
             {
                 _animator.SetBool("Look_right", true);

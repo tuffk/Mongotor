@@ -7,6 +7,14 @@ public class destroyP : MonoBehaviour {
 	void Awake() {
 		Destroy (gameObject, lifetime);
 	}
+
+    void OnCollisionEnter(Collision otro)
+    {
+        if (otro.gameObject.tag == "totem")
+            Destroy(otro.transform.parent.gameObject);
+        if (otro.transform.tag != "raptor")
+            Destroy(this.gameObject);
+    }
 	// Use this for initialization
 	void Start () {
 	
