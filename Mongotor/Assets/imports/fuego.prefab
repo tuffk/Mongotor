@@ -38,6 +38,7 @@ GameObject:
   - 4: {fileID: 4000010128968994}
   - 114: {fileID: 114000013192514522}
   - 54: {fileID: 54000012600110928}
+  - 135: {fileID: 135000014085549024}
   m_Layer: 0
   m_Name: fuego
   m_TagString: Untagged
@@ -52,7 +53,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1000012983368282}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 206.08015, y: -25.050936, z: -43.442978}
+  m_LocalPosition: {x: 442.72333, y: -12.16929, z: 366.59085}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_Children:
@@ -95,9 +96,21 @@ MonoBehaviour:
   m_GameObject: {fileID: 1000012983368282}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 456436a6ab5a17044be99e5161c3a297, type: 3}
+  m_Script: {fileID: 11500000, guid: 9388e78deddcfda48a54cc047589b54e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!135 &135000014085549024
+SphereCollider:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1000012983368282}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 0.5
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!198 &198000012000270244
 ParticleSystem:
   m_ObjectHideFlags: 1
@@ -314,7 +327,7 @@ ParticleSystem:
       maxColor: {r: 1, g: 1, b: 1, a: 1}
       minMaxState: 1
     startSize:
-      scalar: 2
+      scalar: 6
       maxCurve:
         serializedVersion: 2
         m_Curve:

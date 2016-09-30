@@ -24,11 +24,12 @@ public class mover : MonoBehaviour
     private bool hit_b;
 
     public Rigidbody projectile;
+    public Rigidbody projectile2;
     public float speed = 20;
-
-
+    private bool hasPowerup = false;
+    private bool hasPowerup2 = false;
     public float pickupRange = 10.0f;
-    public float holdRange = 3.0f;
+    public float holdRange = 100.0f;
     bool holdingObject = false;
     GameObject heldObject;
 
@@ -38,7 +39,7 @@ public class mover : MonoBehaviour
     {
         kuz = this.transform.rotation;
         sharmuta = this.transform.position;
-
+        //Raptor_Control._cindyMuere = false;
         if (Camera.main != null)
         {
             m_Cam = Camera.main.transform;
@@ -56,13 +57,23 @@ public class mover : MonoBehaviour
     {
         if (otro.gameObject.tag == "Untagged")
             InAir = false;
+        if (otro.gameObject.tag == "powerup")
+        {
+            Destroy(otro.gameObject);
+            hasPowerup = true;
+        }
+        if (otro.gameObject.tag == "powerup2")
+        {
+            Destroy(otro.gameObject);
+            hasPowerup2 = true;
+        }
     }
 
     void OnCollisionExit(Collision otro)
     {
         InAir = true;
     }
-    void mekai()
+    public void mekai()
     {
         this.transform.position = sharmuta;
         this.transform.rotation = kuz;
@@ -189,17 +200,14 @@ public class mover : MonoBehaviour
             if (Physics.Raycast(m_Cam.position, m_Cam.forward, out hit, maxRange))
             {
                 new_obj = hit.transform.gameObject;
-                if (new_obj.GetComponent<Renderer>() != null)
+                targetPoint = hit.point;
+                if (new_obj.GetComponent<Renderer>() != null && new_obj.transform.tag!= "nocolor")
                 {
-                    targetPoint = hit.point;
+                    
                     new_obj = hit.transform.gameObject;
                     new_obj.GetComponent<Renderer>().material.color = Color.red;
                     hit_obj = new_obj;
                     hit_b = true;
-                }
-                else
-                {
-                    targetPoint = m_Cam.position + (m_Cam.forward * maxRange);
                 }
                 if (new_obj != hit_obj && hit_obj != null)
                 {
@@ -208,7 +216,7 @@ public class mover : MonoBehaviour
             }
             else
             {
-                if (hit_b)
+                if (hit_b && hit_obj)
                 {
                     hit_obj.GetComponent<Renderer>().material.color = Color.white;
                     hit_b = false;
@@ -218,9 +226,12 @@ public class mover : MonoBehaviour
 
         }
 
-        if (Input.GetButtonDown("Fire1"))
+        if (Input.GetButtonDown("Fire1") &&  (hasPowerup || hasPowerup2))
         {
-            fire(projectile, targetPoint);
+            if(hasPowerup)
+                fire(projectile, targetPoint);
+            else
+                fire(projectile2, targetPoint);
             /*Vector3 headP = transform.position + new Vector3 (0f, 1.0f, 0f);
 				Rigidbody instantiatedProjectile = Instantiate(projectile,
 					headP,
@@ -265,15 +276,13 @@ public class mover : MonoBehaviour
 
     private void fire(Rigidbody projectile, Vector3 targetPoint)
     {
-        Vector3 headP = transform.position + new Vector3(0f, 1.0f, 0f);
+        Vector3 headP = transform.position + transform.up * 1.0f + transform.forward * 2.0f;
         Rigidbody instantiatedProjectile = Instantiate(projectile,
             headP,
             transform.rotation)
             as Rigidbody;
 
         instantiatedProjectile.transform.LookAt(targetPoint);
-        Vector3 direction = (headP - targetPoint).normalized;
-        Debug.Log(direction);
         instantiatedProjectile.velocity = instantiatedProjectile.transform.forward * speed;
     }
 
