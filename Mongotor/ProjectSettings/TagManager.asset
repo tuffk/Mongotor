@@ -8,6 +8,11 @@ TagManager:
   - powerup
   - totem
   - raptor
+  - nocolor
+  - egg
+  - morado
+  - alpha
+  - beta
   layers:
   - Default
   - TransparentFX

@@ -133,13 +133,13 @@ namespace UnityStandardAssets.ImageEffects
 
                 // "merge up" with background COC
                 dofHdrMaterial.SetTexture("_FgOverlap", temp2);
-                fromTo.MarkRestoreExpected(); // only touching alpha channel, RT restore expected
+                fromTo.MarkRestoreExpected(); // only touching beta channel, RT restore expected
                 Graphics.Blit (fromTo, fromTo, dofHdrMaterial,  13);
                 RenderTexture.ReleaseTemporary(temp2);
             }
             else {
-                // capture full coc in alpha channel (fromTo is not read, but bound to detect screen flip)
-				fromTo.MarkRestoreExpected(); // only touching alpha channel, RT restore expected
+                // capture full coc in beta channel (fromTo is not read, but bound to detect screen flip)
+				fromTo.MarkRestoreExpected(); // only touching beta channel, RT restore expected
                 Graphics.Blit (fromTo, fromTo, dofHdrMaterial,  0);
             }
         }
@@ -239,7 +239,7 @@ namespace UnityStandardAssets.ImageEffects
                         Graphics.Blit (rtSuperLow2, rtLow, dofHdrMaterial, 3);
                     }
 
-                    // NEW: LAY OUT ALPHA on destination target so we get nicer outlines for the high rez version
+                    // NEW: LAY OUT beta on destination target so we get nicer outlines for the high rez version
                     Graphics.Blit (rtLow, dest2, dofHdrMaterial, 20);
 
                     // box blur (easier to merge with bokeh buffer)

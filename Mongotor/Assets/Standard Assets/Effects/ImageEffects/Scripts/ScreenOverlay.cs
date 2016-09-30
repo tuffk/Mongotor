@@ -14,7 +14,7 @@ namespace UnityStandardAssets.ImageEffects
             ScreenBlend = 1,
             Multiply = 2,
             Overlay = 3,
-            AlphaBlend = 4,
+            betaBlend = 4,
         }
 
         public OverlayBlendMode blendMode = OverlayBlendMode.Overlay;

@@ -260,7 +260,7 @@ Subshader {
   // 2
  Pass {
 	  ZTest Always Cull Off ZWrite Off
-	  Blend SrcAlpha OneMinusSrcAlpha
+	  Blend Srcbeta OneMinusSrcbeta
 
       CGPROGRAM
       #pragma vertex vert

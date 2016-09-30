@@ -179,7 +179,7 @@ Subshader {
  // 7: vignette blending (blend to dest)
  Pass {    
  	  
- 	  Blend Zero SrcAlpha
+ 	  Blend Zero Srcbeta
 
       CGPROGRAM
       #pragma vertex vert

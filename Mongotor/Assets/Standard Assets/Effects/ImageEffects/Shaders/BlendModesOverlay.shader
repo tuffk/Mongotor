@@ -78,7 +78,7 @@ if (Target <= ½) R = (2xTarget) x Blend
 		return half4(lerp(color.rgb, result.rgb, (_Intensity)), color.a);
 	}
 	
-	half4 fragAlphaBlend (v2f i) : SV_Target {
+	half4 fragbetaBlend (v2f i) : SV_Target {
 		half4 toAdd = tex2D(_Overlay, i.uv[0]) ;
 		return lerp(tex2D(_MainTex, i.uv[1]), toAdd, toAdd.a * _Intensity);
 	}	
@@ -126,7 +126,7 @@ Subshader {
 
       CGPROGRAM
       #pragma vertex vert
-      #pragma fragment fragAlphaBlend
+      #pragma fragment fragbetaBlend
       ENDCG
   }   
 }

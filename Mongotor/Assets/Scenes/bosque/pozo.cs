@@ -26,8 +26,11 @@ public class pozo : MonoBehaviour
             texteamela.death = true;
             mv.enabled = false;
             StartCoroutine(myMuero(2.5f));
+            
         }
     }
+
+    
 
     IEnumerator myMuero(float delay)
     {

@@ -194,17 +194,14 @@ public class mover : MonoBehaviour
             if (Physics.Raycast(m_Cam.position, m_Cam.forward, out hit, maxRange))
             {
                 new_obj = hit.transform.gameObject;
-                if (new_obj.GetComponent<Renderer>() != null)
+                targetPoint = hit.point;
+                if (new_obj.GetComponent<Renderer>() != null && new_obj.transform.tag!= "nocolor")
                 {
-                    targetPoint = hit.point;
+                    
                     new_obj = hit.transform.gameObject;
                     new_obj.GetComponent<Renderer>().material.color = Color.red;
                     hit_obj = new_obj;
                     hit_b = true;
-                }
-                else
-                {
-                    targetPoint = m_Cam.position + (m_Cam.forward * maxRange);
                 }
                 if (new_obj != hit_obj && hit_obj != null)
                 {
@@ -213,7 +210,7 @@ public class mover : MonoBehaviour
             }
             else
             {
-                if (hit_b)
+                if (hit_b && hit_obj)
                 {
                     hit_obj.GetComponent<Renderer>().material.color = Color.white;
                     hit_b = false;

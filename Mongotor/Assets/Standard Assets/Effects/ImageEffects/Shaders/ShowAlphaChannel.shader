@@ -1,6 +1,6 @@
 
 
-Shader "Hidden/ShowAlphaChannel" {
+Shader "Hidden/ShowbetaChannel" {
 Properties {
 	_MainTex ("Base (RGB)", 2D) = "white" {}
 	_EdgeTex ("_EdgeTex", 2D) = "white" {}

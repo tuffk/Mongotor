@@ -304,11 +304,11 @@
 			zy = -Linear01Depth(zy);
 			float f = softDepthCompare(zx, zy);
 			float b = softDepthCompare(zy, zx);
-			float alphay = b * cone(x, y, vx) + f * cone(y, x, vy) +  cylinder(y, x, vy) * cylinder(x, y, vx) * 2.0;
+			float betay = b * cone(x, y, vx) + f * cone(y, x, vy) +  cylinder(y, x, vy) * cylinder(x, y, vx) * 2.0;
 
 			float4 cy = tex2Dlod(_MainTex, float4(y,0,0));
-			sum += cy * alphay * contrib;
-			weight += alphay * contrib;
+			sum += cy * betay * contrib;
+			weight += betay * contrib;
 		}
 		sum /= weight;
 		return sum;
@@ -367,11 +367,11 @@
 
 			float f = softDepthCompare(zx, zy);
 			float b = softDepthCompare(zy, zx);
-			float alphay = b * cone(x, y.xy, vx) + f * cone(y.xy, x, vy) +  cylinder(y.xy, x, vy) * cylinder(x, y.xy, vx) * 2.0;
+			float betay = b * cone(x, y.xy, vx) + f * cone(y.xy, x, vy) +  cylinder(y.xy, x, vy) * cylinder(x, y.xy, vx) * 2.0;
 
 			float4 cy = tex2Dlod(_MainTex, float4(y.xy,0,0));
-			sum += cy * alphay;
-			weight += alphay;
+			sum += cy * betay;
+			weight += betay;
 
 #if defined(SHADER_API_D3D11) || defined(SHADER_API_GLCORE)
 
@@ -382,11 +382,11 @@
 
 			f = softDepthCompare(zx, zy);
 			b = softDepthCompare(zy, zx);
-			alphay = b * cone(x, y.zw, vx) + f * cone(y.zw, x, vy) +  cylinder(y.zw, x, vy) * cylinder(x, y.zw, vx) * 2.0;
+			betay = b * cone(x, y.zw, vx) + f * cone(y.zw, x, vy) +  cylinder(y.zw, x, vy) * cylinder(x, y.zw, vx) * 2.0;
 
 			cy = tex2Dlod(_MainTex, float4(y.zw,0,0));
-			sum += cy * alphay;
-			weight += alphay;
+			sum += cy * betay;
+			weight += betay;
 			
 #endif
 		}

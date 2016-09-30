@@ -124,10 +124,10 @@ Shader "Hidden/ScreenSpaceAmbientObscurance"
 
 	float2 TapLocation(int sampleNumber, float spinAngle, out float ssR){
 		// Radius relative to ssR
-		float alpha = float(sampleNumber + 0.5) * (1.0 / NUM_SAMPLES);
-		float angle = alpha * (NUM_SPIRAL_TURNS * 6.28) + spinAngle;
+		float beta = float(sampleNumber + 0.5) * (1.0 / NUM_SAMPLES);
+		float angle = beta * (NUM_SPIRAL_TURNS * 6.28) + spinAngle;
 
-		ssR = alpha;
+		ssR = beta;
 		return float2(cos(angle), sin(angle));
 	}
 

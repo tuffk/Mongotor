@@ -129,25 +129,25 @@ bool castDenseScreenSpaceRay
     float xMin = 0.5;
 
     // 2D interpolation parameter
-    float alpha = 0.0;
+    float beta = 0.0;
     // P0 must be in bounds
     if (P1.y > yMax || P1.y < yMin) {
         float yClip = (P1.y > yMax) ? yMax : yMin;
-        float yAlpha = (P1.y - yClip) / (P1.y - P0.y); // Denominator is not zero, since P0 != P1 (or P0 would have been clipped!)
-        alpha = yAlpha;
+        float ybeta = (P1.y - yClip) / (P1.y - P0.y); // Denominator is not zero, since P0 != P1 (or P0 would have been clipped!)
+        beta = ybeta;
     } 
 
     // P0 must be in bounds
     if (P1.x > xMax || P1.x < xMin) {
         float xClip = (P1.x > xMax) ? xMax : xMin;
-        float xAlpha = (P1.x - xClip) / (P1.x - P0.x); // Denominator is not zero, since P0 != P1 (or P0 would have been clipped!)
-        alpha = max(alpha, xAlpha);
+        float xbeta = (P1.x - xClip) / (P1.x - P0.x); // Denominator is not zero, since P0 != P1 (or P0 would have been clipped!)
+        beta = max(beta, xbeta);
     } 
 
     // These are all in homogeneous space, so they interpolate linearly
-    P1 = lerp(P1, P0, alpha);
-    k1 = lerp(k1, k0, alpha);
-    Q1 = lerp(Q1, Q0, alpha);
+    P1 = lerp(P1, P0, beta);
+    k1 = lerp(k1, k0, beta);
+    Q1 = lerp(Q1, Q0, beta);
 #endif
 
     // We're doing this to avoid divide by zero (rays exactly parallel to an eye ray)

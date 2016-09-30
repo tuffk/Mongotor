@@ -347,9 +347,9 @@
 		return returnValue/4;
 	}		
 
-	float4 fragBlurAlphaWeighted (v2fBlur i) : SV_Target 
+	float4 fragBlurbetaWeighted (v2fBlur i) : SV_Target 
 	{
-		const float ALPHA_WEIGHT = 2.0f;
+		const float beta_WEIGHT = 2.0f;
 		float4 sum = float4 (0,0,0,0);
 		float w = 0;
 		float weights = 0;
@@ -369,16 +369,16 @@
 		float4 sampleK = tex2D(_MainTex, i.uv89.zw);		
 								
 		w = sampleA.a * G_WEIGHTS[0]; sum += sampleA * w; weights += w;
-		w = saturate(ALPHA_WEIGHT*sampleB.a) * G_WEIGHTS[1]; sum += sampleB * w; weights += w;
-		w = saturate(ALPHA_WEIGHT*sampleC.a) * G_WEIGHTS[1]; sum += sampleC * w; weights += w;
-		w = saturate(ALPHA_WEIGHT*sampleD.a) * G_WEIGHTS[2]; sum += sampleD * w; weights += w;
-		w = saturate(ALPHA_WEIGHT*sampleE.a) * G_WEIGHTS[2]; sum += sampleE * w; weights += w;
-		w = saturate(ALPHA_WEIGHT*sampleF.a) * G_WEIGHTS[3]; sum += sampleF * w; weights += w;
-		w = saturate(ALPHA_WEIGHT*sampleG.a) * G_WEIGHTS[3]; sum += sampleG * w; weights += w;
-		w = saturate(ALPHA_WEIGHT*sampleH.a) * G_WEIGHTS[4]; sum += sampleH * w; weights += w;
-		w = saturate(ALPHA_WEIGHT*sampleI.a) * G_WEIGHTS[4]; sum += sampleI * w; weights += w;
-		w = saturate(ALPHA_WEIGHT*sampleJ.a) * G_WEIGHTS[5]; sum += sampleJ * w; weights += w;
-		w = saturate(ALPHA_WEIGHT*sampleK.a) * G_WEIGHTS[5]; sum += sampleK * w; weights += w;
+		w = saturate(beta_WEIGHT*sampleB.a) * G_WEIGHTS[1]; sum += sampleB * w; weights += w;
+		w = saturate(beta_WEIGHT*sampleC.a) * G_WEIGHTS[1]; sum += sampleC * w; weights += w;
+		w = saturate(beta_WEIGHT*sampleD.a) * G_WEIGHTS[2]; sum += sampleD * w; weights += w;
+		w = saturate(beta_WEIGHT*sampleE.a) * G_WEIGHTS[2]; sum += sampleE * w; weights += w;
+		w = saturate(beta_WEIGHT*sampleF.a) * G_WEIGHTS[3]; sum += sampleF * w; weights += w;
+		w = saturate(beta_WEIGHT*sampleG.a) * G_WEIGHTS[3]; sum += sampleG * w; weights += w;
+		w = saturate(beta_WEIGHT*sampleH.a) * G_WEIGHTS[4]; sum += sampleH * w; weights += w;
+		w = saturate(beta_WEIGHT*sampleI.a) * G_WEIGHTS[4]; sum += sampleI * w; weights += w;
+		w = saturate(beta_WEIGHT*sampleJ.a) * G_WEIGHTS[5]; sum += sampleJ * w; weights += w;
+		w = saturate(beta_WEIGHT*sampleK.a) * G_WEIGHTS[5]; sum += sampleK * w; weights += w;
 
 		sum /= weights + 1e-4f;
 
@@ -567,13 +567,13 @@
 		return from;
 	}
 	
-	float4 fragUpsampleWithAlphaMask(v2f i) : SV_Target 
+	float4 fragUpsampleWithbetaMask(v2f i) : SV_Target 
 	{
 		float4 c = tex2D(_MainTex, i.uv1.xy);
 		return c;
 	}		
 	
-	float4 fragAlphaMask(v2f i) : SV_Target 
+	float4 fragbetaMask(v2f i) : SV_Target 
 	{
 		float4 c = tex2D(_MainTex, UnityStereoScreenSpaceUVAdjust(i.uv1.xy, _MainTex_ST));
 		c.a = saturate(c.a*100.0);
@@ -698,7 +698,7 @@ Subshader
  Pass {
 	  ZTest Always Cull Off ZWrite Off
 	  ColorMask RGB
-	  Blend SrcAlpha OneMinusSrcAlpha
+	  Blend Srcbeta OneMinusSrcbeta
 
       CGPROGRAM
 
@@ -879,7 +879,7 @@ Subshader
 
       #pragma target 3.0
       #pragma vertex vertBlurPlusMinus
-      #pragma fragment fragBlurAlphaWeighted
+      #pragma fragment fragBlurbetaWeighted
 
       ENDCG
   	}    
@@ -893,7 +893,7 @@ Subshader
 
       #pragma target 3.0
       #pragma vertex vert
-      #pragma fragment fragAlphaMask
+      #pragma fragment fragbetaMask
 
       ENDCG
   	}
@@ -904,7 +904,7 @@ Subshader
 	  ZTest Always Cull Off ZWrite Off
 
 	  BlendOp Add, Add
-	  Blend DstAlpha OneMinusDstAlpha, Zero One
+	  Blend Dstbeta OneMinusDstbeta, Zero One
 
       CGPROGRAM
 
@@ -920,15 +920,15 @@ Subshader
  Pass {
 	  ZTest Always Cull Off ZWrite Off
 
-	  // destination alpha needs to stay intact as we have layed alpha before
+	  // destination beta needs to stay intact as we have layed beta before
 	  BlendOp Add, Add
-	  Blend DstAlpha One, Zero One
+	  Blend Dstbeta One, Zero One
 
       CGPROGRAM
       
       #pragma target 3.0
       #pragma vertex vert
-      #pragma fragment fragUpsampleWithAlphaMask
+      #pragma fragment fragUpsampleWithbetaMask
 
       ENDCG
   	} 	

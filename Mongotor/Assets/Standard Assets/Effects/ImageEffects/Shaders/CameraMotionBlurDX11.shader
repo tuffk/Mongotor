@@ -165,13 +165,13 @@
 			zy = -Linear01Depth(zy);
 			float f = softDepthCompare(zx, zy);
 			float b = softDepthCompare(zy, zx);
-			float alphay = f * cone(y, x, vy) +	// blurry y in front of any x
+			float betay = f * cone(y, x, vy) +	// blurry y in front of any x
 			               b * cone(x, y, vx) +	// any y behing blurry x; estimate background
 			               cylinder(y, x, vy) * cylinder(x, y, vx) * 2.0;	// simultaneous blurry x and y
 			
 			float4 cy = tex2Dlod(_MainTex, float4(y,0,0));
-			sum += cy * alphay;
-			weight += alphay;
+			sum += cy * betay;
+			weight += betay;
 		}
 		sum /= weight;
 		return sum;

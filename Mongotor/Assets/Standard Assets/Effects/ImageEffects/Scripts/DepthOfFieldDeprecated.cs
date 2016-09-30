@@ -198,7 +198,7 @@ namespace UnityStandardAssets.ImageEffects
 
             AllocateTextures (blurForeground, source, divider, lowTexDivider);
 
-            // WRITE COC to alpha channel
+            // WRITE COC to beta channel
             // source is only being bound to detect y texcoord flip
             Graphics.Blit (source, source, dofMaterial, 3);
 
@@ -249,7 +249,7 @@ namespace UnityStandardAssets.ImageEffects
 
             // FINAL DEFOCUS (foreground)
             if (blurForeground) {
-                // WRITE COC to alpha channel
+                // WRITE COC to beta channel
                 Graphics.Blit (foregroundTexture, source, dofMaterial, 5);
 
                 // DOWNSAMPLE (unweighted)

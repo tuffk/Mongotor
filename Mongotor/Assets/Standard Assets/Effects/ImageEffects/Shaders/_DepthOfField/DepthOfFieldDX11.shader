@@ -232,7 +232,7 @@ Pass {
 
 	ZWrite Off ZTest Always Cull Off
 	BlendOp Add, Add
-	Blend DstAlpha One, Zero One
+	Blend Dstbeta One, Zero One
 	ColorMask RGBA
 
 	CGPROGRAM

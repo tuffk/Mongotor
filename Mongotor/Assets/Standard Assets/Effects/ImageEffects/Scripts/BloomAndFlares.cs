@@ -40,7 +40,7 @@ namespace UnityStandardAssets.ImageEffects
         public HDRBloomMode hdr = HDRBloomMode.Auto;
         private bool doHdr = false;
         public float sepBlurSpread = 1.5f;
-        public float useSrcAlphaAsMask = 0.5f;
+        public float useSrcbetaAsMask = 0.5f;
 
         public float bloomIntensity = 1.0f;
         public float bloomThreshold = 0.5f;
@@ -139,7 +139,7 @@ namespace UnityStandardAssets.ImageEffects
 
             // cut colors (thresholding)
 
-            BrightFilter(bloomThreshold, useSrcAlphaAsMask, quarterRezColor, secondQuarterRezColor);
+            BrightFilter(bloomThreshold, useSrcbetaAsMask, quarterRezColor, secondQuarterRezColor);
             quarterRezColor.DiscardContents();
 
             // blurring
@@ -286,13 +286,13 @@ namespace UnityStandardAssets.ImageEffects
             Graphics.Blit(from, to, lensFlareMaterial);
         }
 
-        private void BrightFilter(float thresh, float useAlphaAsMask, RenderTexture from, RenderTexture to)
+        private void BrightFilter(float thresh, float usebetaAsMask, RenderTexture from, RenderTexture to)
         {
             if (doHdr)
                 brightPassFilterMaterial.SetVector("threshold", new Vector4(thresh, 1.0f, 0.0f, 0.0f));
             else
                 brightPassFilterMaterial.SetVector("threshold", new Vector4(thresh, 1.0f / (1.0f - thresh), 0.0f, 0.0f));
-            brightPassFilterMaterial.SetFloat("useSrcAlphaAsMask", useAlphaAsMask);
+            brightPassFilterMaterial.SetFloat("useSrcbetaAsMask", usebetaAsMask);
             Graphics.Blit(from, to, brightPassFilterMaterial);
         }
 

@@ -104,10 +104,10 @@
 		// goal is to get the highest bang for the buck.
 		// 1.) contrast/frequency should be very high (otherwise bokeh mostly unvisible)
 		// 2.) luminance should be high
-		// 3.) no occluder nearby (stored in alpha channel)
+		// 3.) no occluder nearby (stored in beta channel)
 		
-		// @NOTE 2: about the alpha channel in littleBlur:
-		// the alpha channel stores an heuristic on how likely it is 
+		// @NOTE 2: about the beta channel in littleBlur:
+		// the beta channel stores an heuristic on how likely it is 
 		// that there is no bokeh occluder nearby.
 		// if we didn't' check for that, we'd get very noise bokeh
 		// popping because of the sudden contrast changes
@@ -149,7 +149,7 @@
 		color += sampleA + sampleB + sampleC + sampleD;
 		color *= 0.2;
 		
-		// @NOTE we are doing max on the alpha channel for 2 reasons:
+		// @NOTE we are doing max on the beta channel for 2 reasons:
 		// 1) foreground blur likes a slightly bigger radius
 		// 2) otherwise we get an ugly outline between high blur- and medium blur-areas
 		// drawback: we get a little bit of color bleeding  		
@@ -429,7 +429,7 @@ Subshader {
  
  Pass {
 	  ZTest Always Cull Off ZWrite Off
-	  Blend SrcAlpha OneMinusSrcAlpha
+	  Blend Srcbeta OneMinusSrcbeta
 	  ColorMask RGB
 
       CGPROGRAM
